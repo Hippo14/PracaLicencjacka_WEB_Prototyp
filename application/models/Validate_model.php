@@ -70,4 +70,31 @@ class Validate_model extends CI_Model {
         return ($this->db->affected_rows() > 0) ? true : false;
     }
 
+    function isEventExist($longitude, $latitude) {
+        $sql = 'SELECT name FROM Events WHERE longitude = ? AND latitude = ? LIMIT 1';
+        $query = $this->db->query($sql, array($longitude, $latitude));
+
+        return ($this->db->affected_rows() > 0) ? true : false;
+    }
+
+    function getEventByLatLng($latitude, $longitude) {
+        $sql = 'SELECT name, description, latitude, longitude FROM Events WHERE latitude = ? AND longitude = ? LIMIT 1';
+        $query = $this->db->query($sql, array($latitude, $longitude));
+
+        return ($this->db->affected_rows() > 0) ? $query->row() : null;
+    }
+
+    function storeEvent($name, $description, $latitude, $longitude) {
+        $data = array(
+            'name'         => $name,
+            'description'  => $description,
+            'latitude'     => $latitude,
+            'longitude'    => $longitude
+        );
+
+        $this->db->insert('Events', $data);
+
+        return ($this->db->affected_rows() > 0) ? true : false;
+    }
+
 }

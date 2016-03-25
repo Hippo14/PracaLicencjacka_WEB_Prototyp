@@ -60,7 +60,7 @@ class Register extends CI_Controller {
         } else {
             // Required post params is missing
             $response["error"] = TRUE;
-            $response["error_msg"] = "Required parameters (name, email or password) is missing!";
+            $response["error_msg"] = "Required parameters is missing!";
 
             echo json_encode($response);
         }
