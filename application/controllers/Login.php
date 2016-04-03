@@ -17,8 +17,8 @@ class Login extends CI_Controller {
 
         if ((!empty($email) && !empty($password)) || (isset($email) && isset($password))) {
             // Get the user by email and password
-            $this->load->model('Validate_model');
-            $user = $this->Validate_model->getUserByEmailAndPassword($email, $password);
+            $this->load->model('User');
+            $user = $this->User->getUserByEmailAndPassword($email, $password);
 
             if (isset($user) || !empty($user)) {
                 // User is found

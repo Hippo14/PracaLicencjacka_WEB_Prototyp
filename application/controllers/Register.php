@@ -18,10 +18,10 @@ class Register extends CI_Controller {
         $password = $this->input->post('password', TRUE);
 
         if (isset($name) && isset($email) && isset($accountType) && isset($password)) {
-            $this->load->model('Validate_model');
+            $this->load->model('User');
 
             // Check if user already exists
-            if ($this->Validate_model->isUserExisted($email)) {
+            if ($this->User->isUserExisted($email)) {
                 // User already existed
                 $response["error"] = TRUE;
                 $response["error_msg"] = "User already existed with " . $email;
@@ -29,16 +29,16 @@ class Register extends CI_Controller {
                 echo json_encode($response);
             } else {
                 // Create a new user
-                if ($this->Validate_model->storeUser($name, $email, $accountType, $password)) {
+                if ($this->User->storeUser($name, $email, $accountType, $password)) {
                     // Get created user
-                    $user = $this->Validate_model->getUserByEmailAndPassword($email, $password);
+                    $user = $this->User->getUserByEmailAndPassword($email, $password);
 
                     if (isset($user) || !empty($user)) {
                         // User stored successfully
                         $response["error"] = FALSE;
                         $response["user"]["name"] = $user->name;
                         $response["user"]["email"] = $user->email;
-                        $response["user"]["accountType"] = $user->accountType;
+                        $response["user"]["accountType"] = $user->accountTypeID;
                         $response["user"]["password"] = $user->password;
 
                         echo json_encode($response);
