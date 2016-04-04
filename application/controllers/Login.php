@@ -9,6 +9,11 @@
 class Login extends CI_Controller {
 
     public function index() {
+
+
+//        $_POST["email"] = "hippo14@gmail.com";
+//        $_POST["password"] = "303delta";
+
         // JSON Response array
         $response = array("error" => FALSE);
 
@@ -25,6 +30,7 @@ class Login extends CI_Controller {
                 $response["error"] = FALSE;
                 $response["user"]["name"] = $user->name;
                 $response["user"]["email"] = $user->email;
+                $response["user"]["accountType"] = $user->accountTypeID;
 
                 echo json_encode($response);
             }
